@@ -41,6 +41,25 @@ class GoogleHire {
     xhr.send();
   }
 
+
+
+  /*Fetch Regions with proper error handling.*/
+  static fetchRegions(callback) {
+    // Fetch all restaurants
+    GoogleHire.fetchJobs((error, jobs) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        // Get regions from all job listings
+        const regions = jobs.map((v, i) => jobs[i].jobLocation.address.addressCountry)
+        // Remove duplicates from neighborhoods
+        const uniqueRegions = regions.filter((v, i) => regions.indexOf(v) == i)
+        callback(null, uniqueRegions);
+      }
+    });
+  }
+
+
 }//end class
 
 export {GoogleHire}
