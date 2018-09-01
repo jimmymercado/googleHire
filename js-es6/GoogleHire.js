@@ -54,7 +54,8 @@ class GoogleHire {
         const regions = jobs.map((v, i) => jobs[i].jobLocation.address.addressCountry)
         // Remove duplicates from neighborhoods
         const uniqueRegions = regions.filter((v, i) => regions.indexOf(v) == i)
-        callback(null, uniqueRegions);
+        const cleanRegions = cleanArray(uniqueRegions);
+        callback(null, cleanRegions);
       }
     });
   }
