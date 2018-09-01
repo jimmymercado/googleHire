@@ -59,6 +59,39 @@ class GoogleHire {
     });
   }
 
+  /*Fetch Regions with proper error handling.*/
+  static fetchJobTypes(callback) {
+    // Fetch all restaurants
+    GoogleHire.fetchJobs((error, jobs) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        // Get regions from all job listings
+        const types = jobs.map((v, i) => jobs[i].employmentType)
+        // Remove duplicates from neighborhoods
+        const uniqueTypes = types.filter((v, i) => types.indexOf(v) == i)
+        const cleanTypes = GoogleHire.cleanArray(uniqueTypes);
+        callback(null, cleanTypes);
+      }
+    });
+  }
+
+  static cleanArray(test_array) {
+    var index = -1,
+        arr_length = test_array ? test_array.length : 0,
+        resIndex = -1,
+        result = [];
+
+    while (++index < arr_length) {
+        var value = test_array[index];
+
+        if (value) {
+            result[++resIndex] = value;
+        }
+    }
+
+    return result;
+}
 
 }//end class
 

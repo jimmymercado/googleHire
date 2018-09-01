@@ -8,6 +8,7 @@ var allJobs, regions, jobTypes;
 document.addEventListener('DOMContentLoaded', (event) => {
   fetchAllJobs(); 
   fetchRegions();
+  fetchJobTypes();
 });
 
 /* Fetch Regions and set their HTML */
@@ -19,8 +20,7 @@ const fetchAllJobs = () => {
       allJobs = jobs;
       fillJobs(jobs)
     }
-  })
- 
+  }) 
 }
 
 
@@ -97,6 +97,19 @@ const fetchRegions = () => {
       self.regions = regions;
       //fillNeighborhoodsHTML();
       console.log(regions);
+    }
+  });
+}
+
+/* Fetch Regions and set their HTML */
+const fetchJobTypes = () => {
+  GoogleHire.fetchJobTypes((error, jobTypes) => {
+    if (error) { // Got an error
+      console.error(error);
+    } else {
+      self.jobTypes = jobTypes;
+      //fillNeighborhoodsHTML();
+      console.log(jobTypes);
     }
   });
 }
