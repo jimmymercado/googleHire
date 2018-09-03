@@ -6,7 +6,7 @@ var allJobs, regions, jobTypes;
  * Fetch neighborhoods and cuisines as soon as the page is loaded.
  */
 document.addEventListener('DOMContentLoaded', (event) => {
-  fetchAllJobs(); 
+  //fetchAllJobs(); 
   fetchRegions();
   fetchJobTypes();
   updateJobResults();
@@ -19,7 +19,7 @@ const fetchAllJobs = () => {
         console.log('Error: ',  err);
     }else{
       allJobs = jobs;
-      fillJobs(jobs)
+      //fillJobs(jobs)
     }
   }) 
 }
@@ -152,7 +152,16 @@ const updateJobResults = () => {
     if(err){
       console.log(err);
     }else{
-      console.log(jobs);
+      //console.log(jobs);
+      resetJobList(jobs);
+      fillJobs(jobs);
     }
   })
+}
+
+const resetJobList = (jobs) => {
+  self.allJobs = [];
+  const ul = document.getElementById('job-list');
+  ul.innerHTML = '';
+  self.allJobs = jobs;
 }
