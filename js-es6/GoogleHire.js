@@ -41,6 +41,38 @@ class GoogleHire {
     xhr.send();
   }
 
+  /* Fetch jobs by a selected filters with proper error handling.*/
+  static fetchJobsByFilters(region, jobtype, callback) {
+    GoogleHire.fetchJobs((error, jobs) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        let results = jobs;
+        // Filter jobs to have only given region
+        if (region != 'all') { // filter by region
+          results = results.filter(r => r.jobLocation.address.addressCountry == region);
+        }
+
+        if (jobtype != 'all') { // filter by region
+          results = results.filter(r => r.employmentType == jobtype);
+        }
+        callback(null, results);
+      }
+    });
+  }
+
+  /* Fetch jobs by a region with proper error handling.*/
+  static fetchJobsByRegion(region, callback) {
+    GoogleHire.fetchJobs((error, jobs) => {
+      if (error) {
+        callback(error, null);
+      } else {
+        // Filter jobs to have only given region
+        const results = jobs.filter(r => r.jobLocation.address.addressCountry == region);
+        callback(null, results);
+      }
+    });
+  }
 
 
   /*Fetch Regions with proper error handling.*/

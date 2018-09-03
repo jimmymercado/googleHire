@@ -9,6 +9,7 @@ document.addEventListener('DOMContentLoaded', (event) => {
   fetchAllJobs(); 
   fetchRegions();
   fetchJobTypes();
+  updateJobResults();
 });
 
 /* Fetch Regions and set their HTML */
@@ -96,7 +97,19 @@ const fetchRegions = () => {
     } else {
       self.regions = regions;
       //fillNeighborhoodsHTML();
-      console.log(regions);
+      //populate Select field
+      const select = document.getElementById('region-select');
+      select.addEventListener('change', event => {
+        updateJobResults();
+      });
+
+      regions.forEach(region => {
+        const option = document.createElement('option');
+        option.innerHTML = region;
+        option.value = region;
+        select.append(option);
+      });
+      //console.log(regions);
     }
   });
 }
@@ -109,7 +122,37 @@ const fetchJobTypes = () => {
     } else {
       self.jobTypes = jobTypes;
       //fillNeighborhoodsHTML();
-      console.log(jobTypes);
+      //populate Select field
+      const select = document.getElementById('jobtype-select');
+      select.addEventListener('change', event => {
+        updateJobResults();
+      });
+
+      jobTypes.forEach(jobtype => {
+        const option = document.createElement('option');
+        option.innerHTML = jobtype;
+        option.value = jobtype;
+        select.append(option);
+      });
+      //console.log(jobTypes);
     }
   });
+}
+
+const updateJobResults = () => {
+  const regionSelect = document.getElementById('region-select');
+  const regionIndex = regionSelect.selectedIndex;
+  const region = regionSelect[regionIndex].value;
+
+  const jobtypeSelect = document.getElementById('jobtype-select');
+  const jobtypeIndex = jobtypeSelect.selectedIndex;
+  const jobtype = jobtypeSelect[jobtypeIndex].value;
+
+  GoogleHire.fetchJobsByFilters(region, jobtype, (err, jobs) => {
+    if(err){
+      console.log(err);
+    }else{
+      console.log(jobs);
+    }
+  })
 }

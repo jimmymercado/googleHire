@@ -8,11 +8,28 @@
 <body>
   <div>
     <h1>Job Openings</h1>
+
+    <section id="filter">
+      <div class="filter-options">
+        <h2 tabindex="0">Filter Results:</h2>
+        <label for="region-select">Choose Region</label>
+        <select id="region-select" name="regions">
+          <option value="all">All Regions</option>
+        </select>
+        <label for="jobtype-select">Choose Region</label>
+        <select id="jobtype-select" name="jobtypes">
+          <option value="all">All Job Types</option>
+        </select>
+        
+      </div>
+      
+    </section>
+
     <ul id='job-list'></ul>    
   </div>
 
 
-<script type="application/javascript" charset="utf-8" src="./pub/js/main.bundle.js"></script>
+  <script type="application/javascript" charset="utf-8" src="./pub/js/main.bundle.js"></script>
 
 
 </body>
